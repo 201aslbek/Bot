@@ -1,5 +1,13 @@
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+const app = express();
 
+// Render uchun mitti "soxta" server (Port ochamiz)
+const port = process.env.PORT || 3000;
+app.get('/', (req, res) => res.send('Bot muvaffaqiyatli ishlamoqda!'));
+app.listen(port, () => console.log(`Server ${port}-portda ishga tushdi`));
+
+// --- BOT KODI ---
 // BotFather'dan olingan API tokenni shu yerga kiritasiz
 const token = '8674436820:AAE3qClPc0S13w3BRIQnhtlImOo_lZ0NDMs';
 
@@ -15,12 +23,9 @@ bot.onText(/\/start/, (msg) => {
   bot.sendMessage(chatId, `Salom, ${ism}! Botimizga xush kelibsiz. Men yordam berishga tayyorman!`);
 });
 
-// Bot kanalda admin qilinganda xatolik bermasligi va ishlashi uchun oddiy xabar ushlagich
+// Bot kanalda admin qilinganda xatolik bermasligi uchun
 bot.on('channel_post', (msg) => {
-  // Bu yerda bot kanalga tashlangan xabarlarni o'qiydi.
-  // Hech qanday "leaveChat" (chiqib ketish) buyrug'i yo'qligi sababli, bot kanalda qolaveradi.
   console.log('Kanalga yangi xabar joylandi:', msg.text);
 });
 
-console.log('Bot muvaffaqiyatli ishga tushdi...');
-
+console.log('Bot sozlamalari yuklandi...');
